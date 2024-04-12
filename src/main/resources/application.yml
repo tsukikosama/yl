@@ -1,0 +1,97 @@
+server:
+  port: 8088
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB # 设置单个文件最大大小为10MB
+      max-request-size: 100MB  	# 设置多个文件大小为100MB
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lt?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: wang657483
+  redis:
+    database: 5
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        #????
+        min-idle: 0
+        # ????
+        max-idle: 5
+        #????????(???????)
+        max-wait: -1
+        #?????
+        max-active: 8
+      #??????
+    timeout: 10000
+
+  #??????
+  mail:
+    #??smtp??????
+    # qq???smtp.qq.com          ???465?587
+    # sina    smtp.sina.cn
+    # aliyun  smtp.aliyun.com
+    # 163     smtp.163.com       ???465?994
+    host: smtp.qq.com
+    #?????
+    username: 1083344129@qq.com
+    #????,?????????????????????
+    password: nacjsulkacfbgadh
+    #???465?587
+    port: 587
+    #????????UTF-8
+    default-encoding: UTF-8
+    #????
+    properties:
+      mail:
+        #??SSL ????
+        smtp:
+          ssl:
+            #????????ssl
+            enable: false
+            required: false
+          #??debug??????????????????????????????
+        debug: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+#
+mybatis-plus:
+  type-aliases-package: com.example.yl.entity # ?????
+  ##??mybatisplus??sql??
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #配置mybatisp xml文件位置
+  mapper-locations:
+    - classpath:mapper/*.xml
+
+logging:
+  level:
+    com.yl: debug
+knife4j:
+  enable: true
+  openapi:
+    title: Knife4j官方文档
+    description: "`我是测试`,**你知道吗**
+    # aaa"
+    email: xiaoymin@foxmail.com
+    concat: lsz
+    url: https://docs.xiaominfo.com
+    version: v4.0
+    license: Apache 2.0
+    license-url: https://stackoverflow.com/
+    terms-of-service-url: https://stackoverflow.com/
+    group:
+      test1:
+        group-name: 分组名称
+        api-rule: package
+        api-rule-resources:
+          - com.example.yl.controller
+yl:
+  uploadurl: http://localhost:8085/img/
+  localurl: G:/a_vue/nginx-1.23.4/html/img/

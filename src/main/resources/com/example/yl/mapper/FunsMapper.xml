@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.yl.mapper.FunsMapper">
+
+    <select id="ByPage" resultType="com.example.yl.entity.Funs">
+        select * from funs where uid = ${uid} limit ${curr*8},8;
+    </select>
+    <select id="findFunByUidAndFid" resultType="com.example.yl.entity.Funs">
+        select * from funs where uid = #{uid} and fid = #{fid} ;
+    </select>
+    <select id="findFunsByUid" resultType="com.example.yl.entity.Funs">
+        select * from funs where fid = #{uid} and follow = 1;
+    </select>
+</mapper>

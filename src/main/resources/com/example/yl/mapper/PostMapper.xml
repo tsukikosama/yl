@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.yl.mapper.PostMapper">
+
+    <select id="listByPage" resultType="com.example.yl.entity.Post">
+        select * from post limit ${curr*5},5;
+    </select>
+
+    <select id="likesByPage" resultType="com.example.yl.entity.Post">
+        select * from post order by likes desc limit ${curr*5},5;
+    </select>
+
+    <select id="visitByPage" resultType="com.example.yl.entity.Post">
+        select * from post order by visit desc limit ${curr*5},5;
+    </select>
+    <select id="findByUid" resultType="com.example.yl.entity.Post">
+        select * from post where uid = #{uid} limit ${curr*5},5;
+    </select>
+    <select id="listByUid" resultType="com.example.yl.entity.Post">
+        select * from post where uid = #{uid};
+    </select>
+    <select id="search" resultType="com.example.yl.entity.Post">
+        select * from post where title like %#{key}% ;
+    </select>
+
+</mapper>
