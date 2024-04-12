@@ -45,10 +45,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper();
         wrapper.eq(User::getUsername,user.getUsername());
         wrapper.eq(User::getPassword,user.getPassword());
-
-
-
-        return this.getOne(wrapper);
+        User one = this.getOne(wrapper);
+        if (one == null) {
+            return null;
+        }
+        return one;
     }
 
     @Override

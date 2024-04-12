@@ -32,6 +32,7 @@ public class UserController {
     @ApiOperation(value = "登录")
     @PostMapping("/getone")
     public Result login(@RequestBody User user){
+        System.out.println(user);
         return Result.ok(userService.login(user));
     }
 

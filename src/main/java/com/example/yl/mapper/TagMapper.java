@@ -13,6 +13,8 @@ import java.util.List;
 */
 public interface TagMapper extends BaseMapper<Tag> {
     public List<Tag> selectAll();
+
+    List<Tag> getUserByPage(Integer curr);
 }
 
 
