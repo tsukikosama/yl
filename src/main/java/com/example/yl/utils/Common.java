@@ -8,4 +8,5 @@ public class Common {
     public static final int MAX_FUNS_SIZE = 8;
     public static final String FOLLOW_KEY = "FOLLOW:";
     public static final String LIKES = "LIKES:";
+    public static final String COLLECT = "COLLECT:";
 }

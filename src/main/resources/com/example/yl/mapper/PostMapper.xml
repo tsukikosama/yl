@@ -16,13 +16,26 @@
         select * from post order by visit desc limit ${curr*5},5;
     </select>
     <select id="findByUid" resultType="com.example.yl.entity.Post">
-        select * from post where uid = #{uid} limit ${curr*5},5;
+        select * from post where
+        <if test="uid != null">
+            uid = #{uid}
+        </if>
+        limit ${curr*5},5;
     </select>
     <select id="listByUid" resultType="com.example.yl.entity.Post">
         select * from post where uid = #{uid};
     </select>
     <select id="search" resultType="com.example.yl.entity.Post">
-        select * from post where title like %#{key}% ;
+        select * from post where title like concat('%',#{key},'%') ;
     </select>
 
+    <select id="hot" resultType="com.example.yl.entity.Post">
+        select * from post order by visit desc limit 0,5;
+    </select>
+
+    <select id="followListByUid" resultType="com.example.yl.entity.Post">
+        select * from post where uid in
+            (select uid from funs as a where a.fid = #{uid})
+        order by ctime desc  limit ${curr *5} ,5
+    </select>
 </mapper>

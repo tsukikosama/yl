@@ -13,4 +13,8 @@
     <select id="findFunsByUid" resultType="com.example.yl.entity.Funs">
         select * from funs where fid = #{uid} and follow = 1;
     </select>
+
+    <select id="findFlowers" resultType="com.example.yl.entity.Funs">
+        select * from flowers where fid = #{uid} ;
+    </select>
 </mapper>

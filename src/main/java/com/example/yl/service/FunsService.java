@@ -22,4 +22,6 @@ public interface FunsService extends IService<Funs> {
     List<Funs> findFunsByUid(Integer uid);
 
     List<Funs> findUserFunsByUid(Integer uid,Integer fid);
+
+    List<Funs> findFlowers(Integer uid);
 }

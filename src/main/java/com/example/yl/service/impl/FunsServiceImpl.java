@@ -102,6 +102,13 @@ public class FunsServiceImpl extends ServiceImpl<FunsMapper, Funs>
         return ufuns;
     }
 
+    @Override
+    public List<Funs> findFlowers(Integer uid) {
+        //
+        List<Funs> list = this.baseMapper.findFlowers(uid);
+        return list;
+    }
+
 
 }
 

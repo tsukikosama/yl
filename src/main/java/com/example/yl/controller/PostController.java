@@ -9,6 +9,7 @@ import com.example.yl.service.PostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @Api("论坛接口")
 public class PostController {
     private final PostService postService;
+
 
     @ApiOperation("分页查询帖子")
     @RequestMapping("/list/{page}")
@@ -38,16 +40,12 @@ public class PostController {
     @ApiOperation("查询点击最高的")
     @RequestMapping("/visit/{page}")
     public Result visitByPage(@PathVariable(value = "page",required = false)Integer page){
-
         return Result.ok(postService.visitByPage(page));
     }
     @ApiOperation("通过uid来查询对应的帖子")
     @GetMapping("/{uid}/{curr}")
-    public Result postByUid(@PathVariable("uid")Integer uid,@PathVariable("curr")Integer curr){
-        System.out.println(uid);
-        System.out.println(curr);
+    public Result postByUid(@PathVariable(value = "uid",required = false)Integer uid,@PathVariable("curr")Integer curr){
         Page<Post> page =  postService.findByUid(curr,uid);
-
         return Result.ok(page);
     }
 
@@ -98,4 +96,31 @@ public class PostController {
         postService.saveOrUpdate(post);
         return Result.ok("保存成功");
     }
+
+    @GetMapping("/hot")
+    @ApiOperation("查询热门帖子")
+    public Result hot(){
+        return Result.ok(postService.hot());
+    }
+
+    @PostMapping("/collect")
+    @ApiOperation("收藏")
+    public Result Collect(@RequestParam Integer pid,@RequestParam Integer uid){
+        Long collect = postService.Collect(pid, uid);
+        return Result.ok(collect);
+    }
+
+    @ApiOperation("通过用户查询关注列表")
+    @GetMapping("/collect/list/{curr}")
+    public Result List(@RequestParam Integer uid,@PathVariable Integer curr){
+        Page<Post> list = postService.findCollectListByUid(uid,curr);
+        return Result.ok(list);
+    }
+
+    @ApiOperation("通过用户查询关注用户的帖子")
+    @GetMapping("/follow/list/{curr}")
+    public Result followList(@RequestParam Integer uid,@PathVariable Integer curr){
+        return Result.ok(postService.followList(uid,curr));
+    }
+
 }

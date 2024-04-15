@@ -25,6 +25,9 @@ public interface PostMapper extends BaseMapper<Post> {
 
     List<Post> search(String key);
 
+    List<Post> hot();
+
+    List<Post> followListByUid(Integer uid,Integer curr);
 }
 
 

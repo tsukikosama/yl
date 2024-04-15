@@ -24,4 +24,12 @@ public interface PostService extends IService<Post> {
     List<Post> findPostByUid(Integer uid);
 
     List<Post> search(String key);
+
+    List<Post> hot();
+
+    Long Collect(Integer pid , Integer uid);
+
+    Page<Post> findCollectListByUid(Integer uid, Integer curr);
+
+    Page<Post> followList(Integer uid,Integer curr);
 }

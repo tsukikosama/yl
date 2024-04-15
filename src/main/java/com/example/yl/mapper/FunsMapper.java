@@ -20,6 +20,7 @@ public interface FunsMapper extends BaseMapper<Funs> {
 
     List<Funs> findFunsByUid(Integer uid);
 
+    List<Funs> findFlowers(Integer uid);
 }
 
 
