@@ -1,10 +1,12 @@
 package com.example.yl.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.yl.common.Result;
 import com.example.yl.entity.Review;
 import com.example.yl.service.ReviewService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -79,5 +81,19 @@ public class ReviewController {
     public Result GetReplyByBid(@RequestParam("pid") Integer bid){
         List<Review> list = reviewService.getReplyByBid(bid);
         return Result.ok(list);
+    }
+
+    @ApiOperation(value ="分页查询评论")
+    @GetMapping("/list/{curr}")
+    public Result getReviewByPage(@PathVariable("curr") Integer curr){
+        List<Review> list = reviewService.getReviewByPage(curr);
+        return Result.ok(list);
+    }
+
+    @ApiOperation(value = "查询全部评论")
+    @GetMapping("/list")
+    public Result getAllReview(){
+
+        return Result.ok(reviewService.list());
     }
 }

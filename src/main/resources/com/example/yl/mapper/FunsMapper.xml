@@ -17,4 +17,25 @@
     <select id="findFlowers" resultType="com.example.yl.entity.Funs">
         select * from flowers where fid = #{uid} ;
     </select>
+
+    <select id="getFunsByPage" resultType="com.example.yl.entity.Funs">
+        select * from funs
+        <if test="key != null">
+          where  uid = ${key}
+        </if>
+        limit ${(curr-1)  * 10 },10;
+    </select>
+
+    <select id="search" resultType="com.example.yl.entity.Funs">
+        select * from funs
+
+    </select>
+
+<!--    <select id="getFunsByPageAndKey" resultType="com.example.yl.entity.User">-->
+<!--        select * from user where uid = #{key}  limit ${(curr-1) * 10 },10;-->
+<!--    </select>-->
+
+    <select id="searchAndKey" resultType="com.example.yl.entity.Funs">
+        select * from funs where uid = ${key}
+    </select>
 </mapper>

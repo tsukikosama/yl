@@ -2,6 +2,8 @@ package com.example.yl.mapper;
 
 import com.example.yl.entity.Funs;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.yl.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,6 +23,15 @@ public interface FunsMapper extends BaseMapper<Funs> {
     List<Funs> findFunsByUid(Integer uid);
 
     List<Funs> findFlowers(Integer uid);
+
+    List<Funs> getFunsByPage(@Param("curr") Integer curr,@Param("key") Integer key);
+
+    List<Funs> search(Integer key);
+
+    List<User> getFunsByPageAndKey(Integer curr, Integer key);
+
+    List<Funs> searchAndKey(Integer key);
+
 }
 
 

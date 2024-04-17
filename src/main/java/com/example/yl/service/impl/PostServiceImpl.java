@@ -30,7 +30,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
 
     private final StringRedisTemplate redisTemplate;
 
-    private final FunsServiceImpl funsService;
+
     @Override
     public Page<Post> listByPage(Integer curr) {
         Page<Post> page = new Page<>(curr,MAX_SIZE);

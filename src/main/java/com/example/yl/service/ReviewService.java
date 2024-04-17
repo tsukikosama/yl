@@ -1,5 +1,6 @@
 package com.example.yl.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.yl.entity.Review;
 
@@ -17,5 +18,7 @@ public interface ReviewService extends IService<Review> {
     String addRevice(Review review);
 
     List<Review> getReplyByBid(Integer bid);
+
+    List<Review> getReviewByPage(Integer curr);
 
 }

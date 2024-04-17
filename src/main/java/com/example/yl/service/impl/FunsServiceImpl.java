@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.yl.entity.Funs;
+import com.example.yl.entity.Post;
 import com.example.yl.entity.User;
+import com.example.yl.pojo.FunsInfo;
 import com.example.yl.pojo.UserFuns;
 import com.example.yl.service.FunsService;
 import com.example.yl.mapper.FunsMapper;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import static com.example.yl.utils.Common.MANAGE_SIZE;
 import static com.example.yl.utils.Common.MAX_FUNS_SIZE;
 import static java.util.stream.Collectors.toList;
 
@@ -107,6 +110,47 @@ public class FunsServiceImpl extends ServiceImpl<FunsMapper, Funs>
         //
         List<Funs> list = this.baseMapper.findFlowers(uid);
         return list;
+    }
+
+    @Override
+    public Page<Funs> getFunsByPage(Integer curr,Integer key) {
+
+        Page<Funs> page = new Page<>(curr,MANAGE_SIZE);
+        List<Funs> list = this.baseMapper.getFunsByPage(curr,key);
+        page.setTotal(list.size());
+        page.setRecords(list);
+        return page;
+    }
+
+    //查询用户 返回
+    @Override
+    public List<FunsInfo> listFunsInfo(Integer key) {
+        List<Funs> list ;
+        if (key == null){
+            list = this.list();
+        }else{
+           list = this.baseMapper.searchAndKey(key);
+        }
+
+        List<FunsInfo> funsInfos = toFunsInfo(list);
+        return funsInfos;
+    }
+
+//    @Override
+//    public List<FunsInfo> search(Integer key) {
+//        List<Funs> list = this.baseMapper.search(key);
+//        List<FunsInfo> funsInfos = toFunsInfo(list);
+//        return funsInfos;
+//    }
+
+    public List<FunsInfo> toFunsInfo(List<Funs> list){
+        List<FunsInfo> funsInfos = BeanUtil.copyToList(list, FunsInfo.class);
+        //通过id 去查找名字
+        funsInfos.stream().forEach(item -> {
+            item.setFollowname(userService.getById(item.getFid()).getNickname());
+            item.setUsername(userService.getById(item.getUid()).getNickname());
+        });
+        return funsInfos;
     }
 
 

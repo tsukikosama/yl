@@ -3,7 +3,9 @@ package com.example.yl.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.yl.common.Result;
 import com.example.yl.entity.Funs;
+import com.example.yl.entity.Post;
 import com.example.yl.entity.User;
+import com.example.yl.pojo.FunsInfo;
 import com.example.yl.pojo.UserFuns;
 import com.example.yl.service.FunsService;
 import io.swagger.annotations.Api;
@@ -33,6 +35,7 @@ public class FunsController {
         return Result.ok();
     }
 
+
     @ApiOperation("查询当前用户关注的用户")
     @GetMapping("/same/{uid}/{fid}")
     public Result userFuns(@PathVariable("uid") Integer uid,@PathVariable("fid")Integer fid){
@@ -40,5 +43,29 @@ public class FunsController {
         return Result.ok(list);
     }
 
+    @ApiOperation("分页查询粉丝")
+    @GetMapping("/{curr}")
+    public Result gerInfo(@PathVariable("curr")Integer curr,@RequestParam(value = "key",required = false) Integer key){
+        System.out.println(curr);
+        System.out.println(key);
+        Page<Funs> list = funsService.getFunsByPage(curr,key);
+
+        return Result.ok(list);
+    }
+
+    @ApiOperation("查询全部的粉丝")
+    @GetMapping("/list")
+    public Result getAll(@RequestParam(value = "key",required = false) Integer key){
+
+        List<FunsInfo> list= funsService.listFunsInfo(key);
+        return Result.ok(list);
+    }
+
+//    @ApiOperation("通过id搜索")
+//    @GetMapping("/list/id")
+//    public Result search(@RequestParam("key")Integer key){
+//        List<FunsInfo> list =  funsService.search(key);
+//        return Result.ok(list);
+//    }
 
 }

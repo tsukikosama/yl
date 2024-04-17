@@ -2,6 +2,7 @@ package com.example.yl.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.example.yl.utils.Common.LIKES;
+import static com.example.yl.utils.Common.MANAGE_SIZE;
 
 
 @Service
@@ -130,6 +132,14 @@ public class ReviewServiceImpl extends ServiceImpl<ReviewMapper, Review> impleme
         LambdaQueryWrapper<Review> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Review::getPid,bid);
         List<Review> list = list(wrapper);
+        return list;
+    }
+
+    @Override
+    public List<Review> getReviewByPage(Integer curr) {
+
+        List<Review> list = this.baseMapper.getReviewByPage(curr);
+
         return list;
     }
 }
